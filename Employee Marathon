@@ -1,0 +1,20 @@
+SELECT participant_name
+,completion_fraction*100 AS completion_percentage
+FROM marathon;
+
+SELECT participant_name
+,ROUND(completion_fraction*100,1) AS completion_percentage
+FROM marathon;
+
+SELECT participant_name
+,ROUND(completion_fraction*100,1) AS completion_percentage
+FROM marathon
+ORDER BY completion_percentage desc;
+
+SELECT COUNT(*),
+CASE WHEN completion_fraction >=.75 THEN "75%+"
+WHEN completion_fraction >=.5 THEN "50%+"
+WHEN completion_fraction >=.25 THEN "25%+"
+ELSE "Under 25%" END AS "quarter_completed"
+FROM marathon
+GROUP BY quarter_completed
