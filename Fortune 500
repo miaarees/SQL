@@ -1,0 +1,32 @@
+SELECT*
+FROM fortune_companies;
+
+#Analysis
+
+#Assign all the companies in the technology industry as 'ideal time off', 'acceptable', and 'substandard' based on the paid time off;
+SELECT company_name
+,CASE WHEN paid_time_off_days>=23 THEN "ideal time off"
+WHEN paid_time_off_days>=18 THEN "acceptable"
+ELSE "substandard"
+END as "ideal time off"
+FROM fortune_companies
+WHERE industry="Technology";
+
+#Which industries have an average revenue of at least $300 billion, and what are their avg revenues?
+SELECT industry, ROUND(AVG(revenue),1) as avg_revenue
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_revenue>=300
+
+#Which manufacturing companies have no healthcare benefits and less than 8 weeks of maternity leave?
+SELECT company_name
+FROM fortune_companies
+WHERE maternity_leave_weeks<8
+AND healthcare_benefits=0;
+
+#Which company in the energy industry has the most revenue, and what is their revenue?
+SELECT company_name, MAX(revenue)
+FROM fortune_companies
+WHERE industry="Energy";
+
+#Which companies have less than 100000 employees? 
